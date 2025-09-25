@@ -36,9 +36,12 @@
 
     <div class="max-w-4xl mx-auto bg-gray-900 rounded-lg shadow-xl p-6 md:p-8">
         <!-- Título da Ferramenta -->
-        <h1 class="text-3xl font-bold text-center text-indigo-400 mb-6">
+        <h1 class="text-3xl font-bold text-center text-indigo-400 mb-2">
             Monitoramento NOC
         </h1>
+        <p class="text-center text-gray-400 mb-6 text-sm md:text-base">
+            Este checklist foi criado para auxiliar no registro e acompanhamento de futuros chamados e incidentes.
+        </p>
 
         <!-- Formulário de Entrada -->
         <div class="space-y-4">
@@ -78,6 +81,8 @@
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-300">Status</label>
                     <select id="status" class="mt-1 block w-full rounded-md border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border bg-gray-800 text-white">
+                        <option value="Novo">Novo</option>
+                        <option value="Em Aberto">Em Aberto</option>
                         <option value="Em andamento">Em andamento</option>
                         <option value="Resolvido">Resolvido</option>
                         <option value="Aguardando">Aguardando</option>
@@ -198,12 +203,16 @@
             // Função para determinar a cor do status
             const getStatusColor = (status) => {
                 switch (status) {
+                    case 'Novo':
+                        return 'bg-purple-700 text-white';
+                    case 'Em Aberto':
+                        return 'bg-blue-700 text-white';
                     case 'Resolvido':
                         return 'bg-green-700 text-white';
                     case 'Em andamento':
                         return 'bg-yellow-700 text-white';
                     case 'Aguardando':
-                        return 'bg-blue-700 text-white';
+                        return 'bg-gray-700 text-white';
                     case 'Cancelado':
                         return 'bg-red-700 text-white';
                     default:
@@ -215,7 +224,7 @@
             const limparCamposFormulario = () => {
                 formElements.forEach(element => {
                     if (element.tagName === 'SELECT') {
-                        element.value = 'Em andamento';
+                        element.value = 'Novo';
                     } else {
                         element.value = '';
                     }
